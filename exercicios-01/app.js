@@ -96,6 +96,7 @@ da const myBirthYear;
 - Cole as duas linhas de código no console, pressione enter, feche o console e  
 veja o que acontece.
 
+//Feito no Browser
 document.querySelector('#birthYear').value = SEU_ANO_DE_NASCIMENTO
 document.querySelector('.formButton').click()
 */
