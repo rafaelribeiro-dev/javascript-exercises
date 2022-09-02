@@ -246,3 +246,31 @@ section.innerHTML = paragraphs
     pelo restante da quantidade de pessoas que curtiram o post (além das duas  
     pessoas já mencionadas no início da mensagem).
 */
+
+const getLikesMessage = (names = []) => {
+  const firstName = names[0]
+  const secondName = names[1]
+  const thirdName = names[2]
+  switch (names.length) {
+    case 0:
+      console.log(`Ninguem curtiu isso`)
+      break
+    case 1:
+      console.log(`${firstName} curtiu isso`)
+      break
+    case 2:
+      console.log(`${firstName} e ${secondName} curtiram isso`)
+      break
+    case 3:
+      console.log(`${firstName}, ${secondName} e ${thirdName} curtiram isso`)
+      break
+    default:
+      console.log(
+        `${firstName}, ${secondName} e mais ${
+          names.length - 2
+        } pessoas curtiram isso`
+      )
+  }
+}
+
+getLikesMessage(['Rafael', 'Danielle', 'Maria', 'Sueli'])
