@@ -144,16 +144,15 @@ invokeCallback(printMyName)
     resulte no triplo de 33.
 */
 
-const callCallback = (value, callback) => {
-  callback(value)
+const callback = (multiply, number) => {
+  multiply(number)
 }
 
-const triple = number => {
-  console.log(number * 3)
+const triple = value => {
+  console.log(value * 3)
 }
 
-callCallback(33, triple)
-
+callback(triple, 33)
 /*
   11
 
