@@ -7,11 +7,12 @@
 */
 
 const ul = document.querySelector('ul')
-
-Array.from(ul.children).forEach(element => {
-  element.classList.add('video')
-})
-console.log(ul.children)
+const lis = Array.from(ul.children)
+const insertVideoClass = li => {
+  li.classList.add('video')
+}
+lis.forEach(insertVideoClass)
+console.log(lis)
 
 /*
   02
@@ -48,12 +49,9 @@ console.log(ul.previousElementSibling)
     exibida no console.
 */
 
-const lis = document.querySelectorAll('li')
-
 lis.forEach(li => {
   li.addEventListener('click', event => {
-    const clickedElement = event.target
-    console.log(clickedElement)
+    console.log(event.target)
   })
 })
 
@@ -81,13 +79,14 @@ const videos = [
 
 const button = document.querySelector('button')
 
-button.addEventListener('click', () => {
-  videos.forEach(video => {
-    const li = document.createElement('li')
-    li.textContent = video.name
-    ul.append(li)
-  })
-})
+const insertVideoLi = ({ name }) => {
+  ul.innerHTML += `<li> ${name}</li>`
+}
+
+const handleClickButton = () => {
+  videos.forEach(insertVideoLi)
+}
+button.addEventListener('click', handleClickButton)
 
 /*
   07
@@ -95,10 +94,7 @@ button.addEventListener('click', () => {
   - Se um clique no h1 acontecer, faça com que todos os elementos dentro do body 
     sejam removidos.
 */
-
+const body = document.body
 primaryTitle.addEventListener('click', () => {
-  const childrensOfBody = document.body.children
-  Array.from(childrensOfBody).forEach(element => {
-    element.remove()
-  })
+  body.innerHTML = ''
 })
