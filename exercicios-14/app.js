@@ -9,8 +9,6 @@ const title = document.querySelector('h1')
 
 title.textContent = title.textContent.toUpperCase()
 
-// textInUpperCase.style.textTransform = 'uppercase'
-
 /*
   02
 
@@ -20,11 +18,13 @@ title.textContent = title.textContent.toUpperCase()
 
 const numbers = [53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55]
 
-let ul = document.querySelector('.numbers')
+const ul = document.querySelector('ul')
 
-numbers.forEach(number => {
+const showNumberIntoUL = number => {
   ul.innerHTML += `<li class="number">${number}</li>`
-})
+}
+
+numbers.forEach(showNumberIntoUL)
 
 /*
   03
@@ -42,14 +42,9 @@ lis.forEach(li => {
   if (isEven) {
     li.style.color = 'lightblue'
     return
-    //inserindo o return aqui, quando essa condição for TRUE o código abaixo não vai ser executado.
-    // isso evita de se usar o ELSE encadeado ao IF
   }
   li.style.color = 'pink'
 })
-
-console.log(lis)
-
 /*
   04
 
@@ -83,7 +78,9 @@ link.setAttribute(
   - Exiba o novo valor do atributo href do link no console.
 */
 
-console.log(link.getAttribute('href'))
+const getLink = link.getAttribute('href')
+
+console.log(getLink)
 
 /*
   07
@@ -109,4 +106,5 @@ body.classList.remove('body-background')
   - Não utilize o método remove() para fazer isso.
 */
 
-link.classList.toggle('link')
+link.classList.toggle('link') //Remove a classe Link
+link.classList.toggle('link') //Adiciona a classe Link
