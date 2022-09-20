@@ -8,6 +8,7 @@
 
 const ul = document.querySelector('ul')
 const lis = Array.from(ul.children)
+
 const insertVideoClass = li => {
   li.classList.add('video')
 }
