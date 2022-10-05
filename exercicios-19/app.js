@@ -13,38 +13,38 @@ Independente se você já fez o quiz dos filmes enquanto acompanhava a aula, bus
 */
 
 const form = document.querySelector('.quiz-form')
+const showResult = document.querySelector('.result')
 
-const finalResult = document.querySelector('.result')
-
-const correctAnswers = ['B', 'A', 'A', 'B']
+const correctAswers = ['B', 'A', 'A', 'B']
 
 form.addEventListener('submit', event => {
   event.preventDefault()
 
-  let score = 0
-
-  const answers = [
+  const userAnswers = [
     form.inputQuestion1.value,
     form.inputQuestion2.value,
     form.inputQuestion3.value,
     form.inputQuestion4.value
   ]
 
-  scrollTo(0, 0)
-  answers.forEach((answer, index) => {
-    if (answer === correctAnswers[index]) {
+  let score = 0
+
+  userAnswers.forEach((userAnswer, index) => {
+    if (userAnswer === correctAswers[index]) {
       score += 25
     }
   })
 
   let counter = 0
-  finalResult.classList.remove('d-none')
+  scrollTo(0, 0)
 
   const timer = setInterval(() => {
     if (counter === score) {
       clearInterval(timer)
     }
-    finalResult.querySelector('span').textContent = `${counter}%`
+    showResult.querySelector('span').textContent = `${counter}%`
     counter++
-  }, 30)
+  }, 20)
+
+  showResult.classList.remove('d-none')
 })
