@@ -27,23 +27,32 @@
     <!--  -->
     <div class="quiz py-4 bg-dark">
       <div class="container">
-        <h2 class="my-5 text-white">texto de descrição do quiz</h2>
+        <h2 class="my-5 text-white">
+          Com o conhecimento adquirido com os estudos responda
+        </h2>
         <form class="quiz-form text-light">
           <!-- primeira pergunta -->
           <div class="my-5">
             <p class="lead font-weight-normal">
-              Qual desses tipos de variével pode ser reatribuído um novo valor?
+              Qual desses tipos de variável não pode ser reatribuído um novo
+              valor?
             </p>
             <div class="form-check my-2 text-white-50">
               <label class="form-check-label">
                 <input type="radio" name="inputQuestion1" value="A" checked />
-                Const
+                Var
               </label>
             </div>
             <div class="form-check my-2 text-white-50">
               <label class="form-check-label">
                 <input type="radio" name="inputQuestion1" value="B" />
                 Let
+              </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion1" value="C" />
+                Const
               </label>
             </div>
           </div>
@@ -65,6 +74,12 @@
                 Shift()
               </label>
             </div>
+            <div class="form-check my-2 text-white-50">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion2" value="C" />
+                Unshift()
+              </label>
+            </div>
           </div>
           <!-- fim da segunda pergunta -->
           <!-- terceira pergunta -->
@@ -75,13 +90,19 @@
             <div class="form-check my-2 text-white-50">
               <label class="form-check-label">
                 <input type="radio" name="inputQuestion3" value="A" checked />
-                const sayHi = function(){}
+                function sayHi(){}
               </label>
             </div>
             <div class="form-check my-2 text-white-50">
               <label class="form-check-label">
                 <input type="radio" name="inputQuestion3" value="B" />
-                function sayHi(){}
+                const sayHi = function(){}
+              </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion3" value="C" />
+                sayHi()
               </label>
             </div>
           </div>
@@ -100,6 +121,12 @@
             <div class="form-check my-2 text-white-50">
               <label class="form-check-label">
                 <input type="radio" name="inputQuestion4" value="B" />
+                Function invocation
+              </label>
+            </div>
+            <div class="form-check my-2 text-white-50">
+              <label class="form-check-label">
+                <input type="radio" name="inputQuestion4" value="C" />
                 Function expression
               </label>
             </div>
