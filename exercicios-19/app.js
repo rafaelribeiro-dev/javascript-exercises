@@ -13,33 +13,52 @@ Independente se você já fez o quiz dos filmes enquanto acompanhava a aula, bus
 */
 
 const form = document.querySelector('.quiz-form')
-const showResult = document.querySelector('.result')
-const correctAswers = ['B', 'A', 'A', 'B']
+const result = document.querySelector('.result')
+const correctAswers = ['C', 'A', 'B', 'C']
 
-form.addEventListener('click', event => {
-  event.preventDefault()
+const getUserAnswers = () => {
+  let userAnswers = []
 
-  const userAnswers = [
-    form.inputQuestion1.value,
-    form.inputQuestion2.value,
-    form.inputQuestion3.value,
-    form.inputQuestion4.value
-  ]
-
-  let score = 0
-  userAnswers.forEach((useranswer, index) => {
-    if (useranswer === correctAswers[index]) {
-      score += 25
-    }
+  correctAswers.forEach((_, index) => {
+    userAnswers.push(form[`inputQuestion${index + 1}`].value)
   })
 
-  let counter = 0
+  return userAnswers
+}
 
+const showFinalResult = () => {
+  result.classList.remove('d-none')
+  scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  })
+}
+
+const animateResult = score => {
+  let counter = 0
   const timer = setInterval(() => {
     if (counter === score) {
       clearInterval(timer)
     }
-    showResult.querySelector('span').textContent = `${counter++}%`
-    showResult.classList.remove('d-none')
-  }, 30)
+    result.querySelector('span').textContent = `${counter++}%`
+  }, 10)
+}
+
+form.addEventListener('submit', event => {
+  event.preventDefault()
+
+  const userAnswers = getUserAnswers()
+
+  let score = 0
+
+  userAnswers.forEach((userAnswer, index) => {
+    if (userAnswer === correctAswers[index]) {
+      score += 25
+    }
+  })
+
+  showFinalResult()
+
+  animateResult(score)
 })
