@@ -61,4 +61,9 @@ form.addEventListener('submit', event => {
   showFinalResult()
 
   animateResult(score)
+
+  setTimeout(() => {
+    result.classList.add('d-none')
+    location.reload()
+  }, 5000)
 })

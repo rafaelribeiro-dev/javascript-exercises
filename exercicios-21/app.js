@@ -61,9 +61,9 @@ console.log(playerScore)
 
 const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
 
-const oddNumbers = randomNumbers.filter(item => item % 2 === 1)
+const oddNumbers = randomNumbers.filter(randomNumber => randomNumber % 2 === 1)
 
-console.log(`Numeros ímpares do array ${oddNumbers}`)
+console.log(oddNumbers)
 
 /*
   02
@@ -79,8 +79,7 @@ const numberLessThan501 = crazyNumbers.reduce((accumulator, crazyNumber) => {
   }
   return accumulator
 }, 0)
-
-console.log(`O array possui ${numberLessThan501} numeros menores que 501`)
+console.log(numberLessThan501)
 
 /*
   03
@@ -120,11 +119,12 @@ const cart = [
   - Nome 3
 */
 
-const showProducts = cart.reduce((accumulator, item) => {
-  return `${accumulator}- ${item.name} \n`
+const showProductName = cart.reduce((accumulator, { name }) => {
+  return `${accumulator}- ${name} \n`
 }, '')
 
-console.log(showProducts)
+console.log(showProductName)
+
 /*
   05
 
@@ -146,9 +146,9 @@ const tarantinoMovies = [
   { name: 'Kill Bill: Volume 1', release: 2003 }
 ]
 
-const before = tarantinoMovies.filter(({ release }) => release < 2000)
+const moviesBefore2k = tarantinoMovies.filter(({ release }) => release < 2000)
 
-console.log(before)
+console.log(moviesBefore2k)
 
 /*
   06
@@ -170,6 +170,7 @@ const tvShows = [
 const showNames = tvShows.map(({ name }) => name)
 
 console.log(showNames)
+
 /*
   07
 

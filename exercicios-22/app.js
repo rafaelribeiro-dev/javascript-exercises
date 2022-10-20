@@ -86,6 +86,14 @@ console.log(peopleCopy)
 
 const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
 
+const cookedIngredients = ingredients.reduce((acc, item, index, array) => {
+  const correctCookedGender = /a$/.test(item) ? 'cozida' : 'cozido'
+  const isLastItem = index === array.length - 1
+  const cookedMessage = acc + `${item} ${correctCookedGender}`
+  return isLastItem ? cookedMessage : `${cookedMessage},`
+}, '')
+console.log(cookedIngredients)
+
 /*
   07
   
