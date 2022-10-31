@@ -11,34 +11,64 @@ formAddTodo.addEventListener('submit', event => {
     event.target.reset()
     todosContainer.innerHTML += `
     <li
-      class="list-group-item d-flex justify-content-between align-items-center">
+      class="list-group-item d-flex justify-content-between align-items-center" data-todo="${inputValue}">
           <span>${inputValue}</span>
-        <i class="far fa-trash-alt delete"></i>
+        <i class="far fa-trash-alt delete" data-trash="${inputValue}"></i>
       </li>
     `
   }
 })
 
+const removeTodo = clickedElement => {
+  const trashDataValue = clickedElement.dataset.trash
+  const todo = document.querySelector(`[data-todo="${trashDataValue}"]`)
+  trashDataValue ? todo.remove() : trashDataValue
+}
+
+// remoção do List
 todosContainer.addEventListener('click', event => {
   const clickedElement = event.target
-  const clickedTrash = Array.from(clickedElement.classList).includes('delete')
-
-  clickedTrash ? clickedElement.parentElement.remove() : clickedTrash
+  removeTodo(clickedElement)
 })
 
-inputSearch.addEventListener('input', event => {
-  const inputValue = event.target.value.trim().toLowerCase()
-  Array.from(todosContainer.children)
+const todos = Array.from(todosContainer.children)
+
+const showTodo = inputValue => {
+  todos
     .filter(todo => !todo.textContent.toLowerCase().includes(inputValue))
     .forEach(li => {
       li.classList.remove('d-flex')
       li.classList.add('hidden')
     })
+}
 
-  Array.from(todosContainer.children)
+const hideTodo = inputValue => {
+  todos
     .filter(todo => todo.textContent.toLowerCase().includes(inputValue))
     .forEach(li => {
       li.classList.remove('hidden')
       li.classList.add('d-flex')
     })
+}
+
+inputSearch.addEventListener('input', event => {
+  const inputValue = event.target.value.trim().toLowerCase()
+
+  showTodo(inputValue)
+  hideTodo(inputValue)
 })
+
+/*
+  03
+
+  - Refatore a implementação da remoção do to-do (li) da tela;
+  - Tente implementar essa remoção sem "navegar pelo DOM". Ou seja, sem usar 
+    propriedades como a parentElement.
+    
+    Por que? 
+
+    Se futuramente a marcação HTML da aplicação mudar, se o parentElement mudar, 
+    o código que foi implementado não funcionará.
+    
+    Dica: pesquise por dataset e atributos data.
+*/
