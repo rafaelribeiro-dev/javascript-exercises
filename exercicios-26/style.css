@@ -1,0 +1,22 @@
+body {
+  background-color: #212121;
+}
+
+.clock-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0.5rem;
+  font-size: 4em;
+  text-align: center;
+  margin: 200px auto 0;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.clock-container span {
+  padding: 20px;
+  background: #006ce6;
+  border-radius: 1rem;
+}
