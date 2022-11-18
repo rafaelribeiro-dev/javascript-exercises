@@ -121,6 +121,26 @@ console.log(myFunc('Rafael', 'Alves', 35))
 let booksBox = {
   spaces: 5,
   booksIn: 0
-}
+}(
+  // const getPluralOrSingular = (quantity, singular, plural) =>
 
-booksBox.addBooks = booksQuantity => {}
+  (booksBox.addBooks = booksQuantity => {
+    if (booksBox.booksIn === booksBox.spaces) {
+      return `A caixa já está cheia`
+    }
+
+    const availableSpaces = booksBox.spaces - booksBox.booksIn
+    const bookPluralorSingular = availableSpaces === 1 ? 'livro' : 'livros'
+
+    if (booksBox.booksIn + booksQuantity > booksBox.spaces) {
+      const fitPluralOrSingular = availableSpaces === 1 ? 'cabe' : 'cabem'
+      return `Só ${fitPluralOrSingular} mais ${availableSpaces} ${bookPluralorSingular} na caixa`
+    }
+    booksBox.booksIn += booksQuantity
+    return `Já há ${booksBox.booksIn} ${bookPluralorSingular} na caixa`
+  })
+)
+
+console.log(booksBox.addBooks(2))
+console.log(booksBox.addBooks(3))
+console.log(booksBox)
