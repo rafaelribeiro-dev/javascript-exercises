@@ -17,33 +17,40 @@ const getPokemon = (url, callback) => {
   const request = new XMLHttpRequest()
 
   request.addEventListener('readystatechange', () => {
-    const requestIsOk = request.readyState === 4 && request.status === 200
+    const isRequestOk = request.readyState === 4 && request.status === 200
     const requestIsNotOk = request.readyState === 4
 
-    if (requestIsOk) {
+    if (isRequestOk) {
       const data = JSON.parse(request.responseText)
       callback(null, data)
       return
     }
     if (requestIsNotOk) {
-      callback(`Não foi possível obter o Pokémon`, null)
+      callback('Não foi possível obter o Pokémon', null)
     }
   })
 
   request.open('GET', url)
   request.send()
 }
-const logPokemonData = (error, data) => {
-  if (error) {
-    console.log(error)
-    return
-  }
-  console.log(`Pokémon obtido: ${data.name}`)
-}
 
-getPokemon('https://pokeapi.co/api/v2/pokemon/ditto', (error, data) => {
+const logPokemonData = (error, data) =>
+  error ? console.log(error) : console.log(`Pokémon obtido: ${data.name}`)
+
+const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+
+const bulbasaur = getPokemonUrl(1)
+const charmander = getPokemonUrl(4)
+const squirtle = getPokemonUrl(7)
+
+getPokemon(bulbasaur, (error, data) => {
   logPokemonData(error, data)
+  getPokemon(charmander, (error, data) => {
+    logPokemonData(error, data)
+    getPokemon(squirtle, logPokemonData)
+  })
 })
+
 /*
   02
 
@@ -63,15 +70,6 @@ getPokemon('https://pokeapi.co/api/v2/pokemon/ditto', (error, data) => {
     2) Pesquisar no MDN.
 */
 
-const map = (array, func) => {
-  let newArray = []
-  array.forEach(item => {
-    newArray.push(func(item))
-  })
-  return newArray
-}
-
-console.log(map([1, 2, 3], number => number * 2))
 /*
   03
 
@@ -96,12 +94,13 @@ console.log(person.getName())
 */
 
 const x = 'x'
-const getXValue = () => {
-  return (x = 'y')
+const showXValue = () => {
+  const x = 'y'
+  return x
 }
 
 console.log(x)
-console.log(getXValue)
+console.log(showXValue())
 
 /*
   05
@@ -130,20 +129,36 @@ console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
 
 const convertToHex = color => {
   const colors = {
-    red: '#E74C3C',
-    green: '#229954',
-    blue: '#3498DB',
-    black: '#000',
-    white: '#FFF'
+    red: '#DB3434',
+    green: '#3EDB34',
+    blue: '#347DDB',
+    pink: '#DB34CC',
+    black: '#000'
   }
-  return `O hexadecimal para a cor ${color} é ${colors[color]}`
+  if (colors[color]) {
+    console.log(`O hexadecimal para a cor ${colors[color]}`)
+    return
+  }
+  console.log(`Não temos o equivalente hexadecimal para ${color}`)
 }
 
-const colors = ['red', 'purple', 'green', 'silver', 'blue', 'gold', 'black']
+const colors = [
+  'red',
+  'purple',
+  'green',
+  'blue',
+  'jasmin',
+  'black',
+  'pink',
+  'white'
+]
 
-colors.forEach(color => console.log(convertToHex(color)))
+// colors.forEach(color => {
+//   convertToHex(color)
+// })
 
-// console.log(convertToHex(['red', 'green']))
+convertToHex('purple')
+
 /*
   07
 
@@ -165,13 +180,12 @@ const people = [
   { id: 47, name: 'Ana Carolina', age: 18, federativeUnit: 'Alagoas' },
   { id: 87, name: 'Felipe', age: 18, federativeUnit: 'Minas Gerais' },
   { id: 9, name: 'Gabriel', age: 20, federativeUnit: 'São Paulo' },
-  { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' },
-  { id: 71, name: 'Rafael', age: 35, federativeUnit: 'São Paulo' }
+  { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
 ]
 
-const agesFrenquecy = people.reduce((acc, { age }) => {
+const agesFrequency = people.reduce((acc, { age }) => {
   acc[age] = acc[age] + 1 || 1
   return acc
 }, {})
 
-console.log(agesFrenquecy)
+console.log(agesFrequency)
