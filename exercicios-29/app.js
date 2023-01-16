@@ -13,43 +13,43 @@
       executado quando o request anterior for finalizado.
 */
 
-const getPokemon = (url, callback) => {
-  const request = new XMLHttpRequest()
+// const getPokemon = (url, callback) => {
+//   const request = new XMLHttpRequest()
 
-  request.addEventListener('readystatechange', () => {
-    const isRequestOk = request.readyState === 4 && request.status === 200
-    const requestIsNotOk = request.readyState === 4
+//   request.addEventListener('readystatechange', () => {
+//     const isRequestOk = request.readyState === 4 && request.status === 200
+//     const requestIsNotOk = request.readyState === 4
 
-    if (isRequestOk) {
-      const data = JSON.parse(request.responseText)
-      callback(null, data)
-      return
-    }
-    if (requestIsNotOk) {
-      callback('Não foi possível obter o Pokémon', null)
-    }
-  })
+//     if (isRequestOk) {
+//       const data = JSON.parse(request.responseText)
+//       callback(null, data)
+//       return
+//     }
+//     if (requestIsNotOk) {
+//       callback('Não foi possível obter o Pokémon', null)
+//     }
+//   })
 
-  request.open('GET', url)
-  request.send()
-}
+//   request.open('GET', url)
+//   request.send()
+// }
 
-const logPokemonData = (error, data) =>
-  error ? console.log(error) : console.log(`Pokémon obtido: ${data.name}`)
+// const logPokemonData = (error, data) =>
+//   error ? console.log(error) : console.log(`Pokémon obtido: ${data.name}`)
 
-const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+// const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
 
-const bulbasaur = getPokemonUrl(1)
-const charmander = getPokemonUrl(4)
-const squirtle = getPokemonUrl(7)
+// const bulbasaur = getPokemonUrl(1)
+// const charmander = getPokemonUrl(4)
+// const squirtle = getPokemonUrl(7)
 
-getPokemon(bulbasaur, (error, data) => {
-  logPokemonData(error, data)
-  getPokemon(charmander, (error, data) => {
-    logPokemonData(error, data)
-    getPokemon(squirtle, logPokemonData)
-  })
-})
+// getPokemon(bulbasaur, (error, data) => {
+//   logPokemonData(error, data)
+//   getPokemon(charmander, (error, data) => {
+//     logPokemonData(error, data)
+//     getPokemon(squirtle, logPokemonData)
+//   })
+// })
 
 /*
   02
@@ -69,6 +69,12 @@ getPokemon(bulbasaur, (error, data) => {
         08;
     2) Pesquisar no MDN.
 */
+const map = (array, func) => {
+  const newArray = []
+  array.forEach(item => newArray.push(func(item)))
+  return newArray
+}
+console.log(map([1, 2, 3], number => number * 3))
 
 /*
   03
@@ -183,9 +189,60 @@ const people = [
   { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
 ]
 
-const agesFrequency = people.reduce((acc, { age }) => {
-  acc[age] = acc[age] + 1 || 1
+const agesFrequency = people.reduce((acc, person) => {
+  acc[person.age] = acc[person.age] + 1 || 1
   return acc
 }, {})
 
 console.log(agesFrequency)
+
+const getPokemon = url =>
+  new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest()
+
+    request.addEventListener('readystatechange', () => {
+      const requestIsOk = request.readyState === 4 && request.status === 200
+      const requestIsNotOk = request.readyState === 4
+      if (requestIsOk) {
+        const data = JSON.parse(request.responseText)
+        resolve(data)
+        return
+      }
+      if (requestIsNotOk) {
+        reject(`Não foi possível obter o Pokémon`)
+      }
+    })
+    request.open('GET', url)
+    request.send()
+  })
+
+getPokemon('https://pokeapi.co/api/v2/pokemon/1')
+  .then(bulbasaur => {
+    console.log(bulbasaur)
+    return getPokemon('https://pokeapi.co/api/v2/pokemon/4')
+  })
+  .then(charmander => {
+    console.log(charmander)
+    return getPokemon('https://pokeapi.co/api/v2/pokemon/7')
+  })
+  .then(console.log)
+  .catch(error => console.log(error))
+
+// const logPokemonData = (error, data) =>
+//   error ? console.log(error) : console.log(`Pokemom obtido: ${data.name}`)
+
+// const pokemomUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+
+// const bulbasaur = pokemomUrl(1)
+// const charmander = pokemomUrl(4)
+// const squirtle = pokemomUrl(7)
+
+// getPokemon(bulbasaur, (error, data) => {
+//   logPokemonData(error, data)
+//   getPokemon(charmander, (error, data) => {
+//     logPokemonData(error, data)
+//     getPokemon(squirtle, (error, data) => {
+//       logPokemonData(error, data)
+//     })
+//   })
+// })
