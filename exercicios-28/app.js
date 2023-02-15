@@ -24,14 +24,15 @@ const getTodos = callback => {
     const isRequestNotOk = request.readyState === 4
 
     if (isRequestOk) {
-      callback(null, request.responseText)
+      const data = JSON.parse(request.responseText)
+      callback(null, data)
       return
     }
     if (isRequestNotOk) {
       callback('Não foi possível obter os dados da API', null)
     }
   })
-  request.open('GET', 'https://jsonplaceholder.typicode.com/todos')
+  request.open('GET', './todos.json')
   request.send()
 }
 
