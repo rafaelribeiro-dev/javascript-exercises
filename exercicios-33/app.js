@@ -17,6 +17,9 @@ console.log(book)
   - Implemente a função da forma mais concisa que você conseguir.
 */
 
+const littleBoat = ([first, , third]) => [third, first]
+console.log(littleBoat(['Pedro', 'Tiago', 'João']))
+
 /*
   03
 
@@ -30,6 +33,9 @@ const topics = [
   { id: 3, name: 'Carreiras' }
 ]
 
+const [, , { name }] = topics
+
+console.log(name)
 /*
   04
 
@@ -40,6 +46,9 @@ const topics = [
 
 const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
 
+const [, [red, green, blue]] = colors
+
+console.log(`red: ${red} green: ${green} blue: ${blue}`)
 /*
   05
 
@@ -54,8 +63,13 @@ const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
     - Faça a função retornar "Olá, meu nome é [NOME]!".
 */
 
-// console.log(greet({ name: 'Roger' }, 'name'))
-// console.log(greet({}, 'personName'))
+const greet = (obj, dynamicName) => {
+  const { [dynamicName]: name = 'Desconhecido' } = obj
+
+  return `Olá, meu nome é ${name}`
+}
+console.log(greet({ name: 15 }, 'name'))
+console.log(greet({}, 'personName'))
 
 /*
   06
