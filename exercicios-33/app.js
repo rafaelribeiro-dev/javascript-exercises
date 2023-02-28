@@ -64,7 +64,7 @@ console.log(`red: ${red} green: ${green} blue: ${blue}`)
 */
 
 const greet = (obj, dynamicName) => {
-  const { [dynamicName]: name = 'Desconhecido' } = obj
+  const { [dynamicName]: name = 'Desconhecidoj' } = obj
 
   return `Olá, meu nome é ${name}`
 }
