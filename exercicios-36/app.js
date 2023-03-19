@@ -177,13 +177,41 @@ console.log(accumulator)
 */
 
 const nextButton = document.querySelector('[data-js="carousel__button--next"]')
-
 const prevButton = document.querySelector('[data-js="carousel__button--prev"]')
+const images = document.querySelectorAll('[data-js="carousel__item"]')
 
-const slides = document.querySelectorAll('[data-js="carousel__item"]')
+let imageIndex = 0
 
-console.log(nextButton)
-console.log(prevButton)
-console.log(slides)
+const removeClassItem = image =>
+  image.classList.remove('carousel__item--visible')
 
-// fazer o refactoring eliminando os blocos IF  e ForEach
+nextButton.addEventListener('click', () => {
+  const correctImageIndex =
+    imageIndex === images.length - 1 ? (imageIndex = 0) : ++imageIndex
+
+  images.forEach(removeClassItem)
+  images[correctImageIndex].classList.add('carousel__item--visible')
+})
+
+prevButton.addEventListener('click', () => {
+  const correctImageIndex =
+    imageIndex === 0 ? (imageIndex = images.length - 1) : --imageIndex
+
+  images.forEach(removeClassItem)
+  images[correctImageIndex].classList.add('carousel__item--visible')
+})
+
+const isPalindromoString = string => {
+  let newString = ''
+
+  for (let i = string.length - 1; i >= 0; i--) {
+    newString += string[i]
+  }
+  if (newString === string) {
+    console.log(`A palavra ${string} é um palindromo`)
+  } else {
+    console.log(`A palavra ${string} não é um palindromo`)
+  }
+}
+
+isPalindromoString('ovo')

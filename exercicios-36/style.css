@@ -4,8 +4,7 @@
   position: relative;
 }
 
-.carousel .carousel__item,
-.carousel .carousel__item--hidden {
+.carousel .carousel__item {
   display: none;
 }
 
@@ -36,15 +35,15 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  color: #FFF;
+  color: #fff;
   background-color: #242424;
 }
 
-.carousel .carousel__actions button[data-js="carousel__button--prev"] {
+.carousel .carousel__actions button[data-js='carousel__button--prev'] {
   margin-left: 20px;
 }
 
-.carousel .carousel__actions button[data-js="carousel__button--next"] {
+.carousel .carousel__actions button[data-js='carousel__button--next'] {
   margin-right: 20px;
 }
 
