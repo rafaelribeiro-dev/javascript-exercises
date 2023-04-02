@@ -170,3 +170,25 @@ textArea.addEventListener('input', event => {
     vídeo de correção dos exercícios um link para a aula de introdução ao 
     reduce e um link para a documentação do método no MDN.
 */
+
+const reduce = (array, func, initialValue) => {
+  let acc = initialValue
+  array.forEach((item, index, array) => {
+    acc = func(acc, item, index, array)
+  })
+  return acc
+}
+
+console.log(reduce([1, 2, 3], (acc, item) => acc + item, 0))
+console.log(reduce([2, 3, 4], (acc, item) => acc + item, 0))
+console.log(
+  reduce(
+    [1, 2],
+    (acc, item) => {
+      acc['number-' + item] = item
+      return acc
+    },
+    {}
+  )
+)
+console.log(reduce([1, 2], (acc, item, index) => acc + index, 0))
