@@ -175,25 +175,30 @@ extendedClock.stop() /*
           CSV que você criou;
         - download, com o valor 'table.csv'.
 */
-const tableRows = document.querySelectorAll('tr')
+
+const tableRow = document.querySelectorAll('tr')
 const exportButton = document.querySelector('[data-js="export-table-btn"]')
 
-exportButton.addEventListener('click', () => {
-  const CSVString = Array.from(tableRows)
-    .map(row =>
-      Array.from(row.cells)
-        .map(cell => cell.textContent)
-        .join(',')
-    )
-    .join('\n')
+const getCellsText = ({ textContent }) => textContent
+const getStringWithCommas = ({ cells }) =>
+  Array.from(cells).map(getCellsText).join(',')
 
+const createCSVString = Array.from(tableRow).map(getStringWithCommas)
+
+const setCSVDownload = CSVString => {
   exportButton.setAttribute(
     'href',
-    `data:text/csvcharset=utf-8,${encodeURIComponent(CSVString)}`
+    `data:text/csvcharset=utf-8, ${encodeURIComponent(CSVString)}`
   )
-
   exportButton.setAttribute('download', 'tabela.csv')
-})
+}
+
+const exportTable = () => {
+  const CSVString = createCSVString.join('\n')
+  setCSVDownload(CSVString)
+}
+
+// exportButton.addEventListener('click', exportTable)
 
 /*
   06
@@ -249,3 +254,6 @@ exportButton.addEventListener('click', () => {
   PS: o desafio aqui é você implementar essa aplicação sozinho(a), antes 
   de ver as próximas aulas, ok? =)
 */
+
+const currencyOneEl = document.querySelector('[data-js="currency-one"]')
+const currencyTwoEl = document.querySelector('[data-js="currency-two"]')
