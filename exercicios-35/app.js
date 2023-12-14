@@ -35,7 +35,7 @@ input.addEventListener('input', event => {
   console.log(event.target.valueAsNumber)
 })
 
-/*
+/*resolu'
   03
 
   - Implemente uma função 'combineOperations' que recebe 2 parâmetros:

@@ -175,43 +175,49 @@ console.log(accumulator)
     3 No passo 3.4, se o slide exibido atualmente não corresponder ao index do 
       1º slide, o slide anterior deve ser exibido.
 */
-
 const nextButton = document.querySelector('[data-js="carousel__button--next"]')
-const prevButton = document.querySelector('[data-js="carousel__button--prev"]')
+const prevbutton = document.querySelector('[data-js="carousel__button--prev"]')
 const images = document.querySelectorAll('[data-js="carousel__item"]')
 
-let imageIndex = 0
-
-const removeClassItem = image =>
-  image.classList.remove('carousel__item--visible')
+let currentImageIndex = 0
 
 nextButton.addEventListener('click', () => {
-  const correctImageIndex =
-    imageIndex === images.length - 1 ? (imageIndex = 0) : ++imageIndex
+  if (currentImageIndex === images.length - 1) {
+    currentImageIndex = 0
+  } else {
+    ++currentImageIndex
+  }
 
-  images.forEach(removeClassItem)
-  images[correctImageIndex].classList.add('carousel__item--visible')
+  images.forEach(image => {
+    image.classList.remove('carousel__item--visible')
+  })
+  images[currentImageIndex].classList.add('carousel__item--visible')
 })
 
-prevButton.addEventListener('click', () => {
-  const correctImageIndex =
-    imageIndex === 0 ? (imageIndex = images.length - 1) : --imageIndex
+prevbutton.addEventListener('click', () => {
+  if (currentImageIndex === 0) {
+    currentImageIndex = images.length - 1
+  } else {
+    --currentImageIndex
+  }
 
-  images.forEach(removeClassItem)
-  images[correctImageIndex].classList.add('carousel__item--visible')
+  images.forEach(image => {
+    image.classList.remove('carousel__item--visible')
+  })
+  images[currentImageIndex].classList.add('carousel__item--visible')
 })
 
-const isPalindromoString = string => {
+const palindromeLetter = string => {
   let newString = ''
-
   for (let i = string.length - 1; i >= 0; i--) {
     newString += string[i]
+    console.log(newString)
   }
   if (newString === string) {
-    console.log(`A palavra ${string} é um palindromo`)
+    console.log(`a palavra ${string} é um palindromo`)
   } else {
-    console.log(`A palavra ${string} não é um palindromo`)
+    console.log(`a palavra ${string} não é um palindromo`)
   }
 }
 
-isPalindromoString('ovo')
+palindromeLetter('ovo')

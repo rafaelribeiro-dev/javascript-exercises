@@ -7,34 +7,46 @@ const cityTemperatureContainer = document.querySelector(
 )
 const cityCard = document.querySelector('[data-js="cityCard"]')
 
-let timeImage = document.querySelector('[data-js="time"]')
-const timeIconContainer = document.querySelector('[data-js="time-icon"]')
+const showCityCard = () => {
+  if (cityCard.classList.contains('d-none')) {
+    cityCard.classList.remove('d-none')
+  }
+}
 
-cityForm.addEventListener('submit', async event => {
-  event.preventDefault()
-
-  const inputValue = event.target.city.value
-
-  const [{ Key, LocalizedName }] = await getCityData(inputValue)
+const showCityWeatherInfo = async cityName => {
+  const [{ Key, LocalizedName }] = await getCityData(cityName)
   const [{ WeatherText, Temperature, IsDayTime, WeatherIcon }] =
     await getCityWeather(Key)
 
   const timeIcon = `<img src="./src/icons/${WeatherIcon}.svg" />`
-
-  if (cityCard.classList.contains('d-none')) {
-    cityCard.classList.remove('d-none')
-  }
-
-  if (IsDayTime) {
-    timeImage.src = './src/day.svg'
-  } else {
-    timeImage.src = './src/night.svg'
-  }
-
+  timeImage.src = IsDayTime ? `./src/day.svg` : `./src/night.svg`
   timeIconContainer.innerHTML = timeIcon
   cityNameContainer.textContent = LocalizedName
   cityWeatherContainer.textContent = WeatherText
   cityTemperatureContainer.textContent = Temperature.Metric.Value.toFixed()
+  showCityCard()
+}
 
+let timeImage = document.querySelector('[data-js="time"]')
+const timeIconContainer = document.querySelector('[data-js="time-icon"]')
+
+const showLocalStorageCity = () => {
+  const city = localStorage.getItem('city')
+  if (city) {
+    showCityCard()
+    showCityWeatherInfo(city)
+  }
+}
+
+cityForm.addEventListener('submit', event => {
+  event.preventDefault()
+
+  const inputValue = event.target.city.value
+
+  showCityCard()
+  showCityWeatherInfo(inputValue)
+  localStorage.setItem('city', inputValue)
   cityForm.reset()
 })
+
+showLocalStorageCity()

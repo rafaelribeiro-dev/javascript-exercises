@@ -52,3 +52,39 @@ console.log(foundANumber)
     - Substituir o if/else por um código mais elegante =D
     - Isolar a manipulação do DOM em pequenas funções de responsabilidade única.
 */
+
+// - Escreva uma função que receba dois números e retorne a soma.
+
+// - Escreva uma função que receba dois números e retorne o maior deles.
+//   - Se forem números iguais, retorne esse numero
+
+// - Escreva uma função que receba um argumento e retorne o tipo desse argumento
+
+// - Escreva uma função que receba dois números e retorne true caso o primeiro seja múltiplo do segundo
+
+// - Escreva uma função que receba uma string e retorne o número de caracteres encontrados.
+// Exemplo:
+// quantasLetras("ola mundo") deve retornar 9
+
+// - Escreva uma função que receba uma string e o número de palavras encontradas.
+// Exemplo:
+// quantasPalavras("ola mundo") deve retornar 2
+
+// - Escreva uma função que receba uma string e retorne a maior palavra encontrada.
+// Exemplo:
+// maiorPalavra("ola mundo") deve retornar "mundo"
+// - se houver duas ou mais maiores palavras encontradas, retorne a primeira
+// Exemplo
+// maiorPalavra("ola mundo lindo") deve retornar "mundo"
+
+// - Escreva uma função que receba uma string e retorne a maior palavra encontrada.
+// - Se houver duas ou mais maiores palavras encontradas, retorne a ultima
+// Exemplo
+// maiorPalavra("ola mundo lindo") deve retornar "lindo"
+
+// - Escreva uma função que receba duas strings e retorne um boolean se for encontrado na primeira string a segunda.
+// encontrouString("ola mundo", "ola") deve retornar true
+// encontrouString("ola mundo", "lindo") deve retornar false
+
+// - Escreva uma função que receba duas strings e retorne quantas vezes o segundo argumento foi encontrado no primeiro.
+// quantasVezesEncontrou("ola mundo ola lindo", "ola") deve retornar 2
