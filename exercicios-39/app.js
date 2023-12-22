@@ -17,10 +17,14 @@
 */
 
 const numbers = [50, 100, 50]
+const numbers2 = [10, 20]
+const numbers3 = [26, 2, 3, 12, 21, 9]
 
-const sum = (x, y, z) => x + y + z
+const sum = (...params) => params.reduce((acc, param) => acc + param, 0)
 
 console.log(sum(...numbers))
+console.log(sum(...numbers2))
+console.log(sum(...numbers3))
 
 /*
   02
@@ -36,7 +40,37 @@ console.log(sum(...numbers))
     utilizando a classe "active".
 */
 
+const accordion = document.querySelector('[data-js="accordion"]')
 
+accordion.addEventListener('click', event => {
+  const accordionHeaderId = event.target.dataset.accordionHeader
+  const clickedAccordionHeader = document.querySelector(
+    `[data-accordion-header="${accordionHeaderId}"]`
+  )
+  const accordionItemToBeOpened = document.querySelector(
+    `[data-accordion-body="${accordionHeaderId}"]`
+  )
+
+  const accordionHeaderToBeClosed = Array.from(
+    document.querySelectorAll('[data-js="accordion-header"]')
+  )
+    .filter(accordionHeader => accordionHeader !== clickedAccordionHeader)
+    .find(accordionHeader => accordionHeader.classList.contains('active'))
+
+  if (!event.target.dataset.accordionHeader) {
+    return
+  }
+  if (accordionHeaderToBeClosed) {
+    const accordionBodyToBeClosed = document.querySelector(
+      `[data-accordion-body="${accordionHeaderToBeClosed.dataset.accordionHeader}"]`
+    )
+    accordionHeaderToBeClosed.classList.remove('active')
+    accordionBodyToBeClosed.classList.remove('active')
+  }
+
+  clickedAccordionHeader.classList.toggle('active')
+  accordionItemToBeOpened.classList.toggle('active')
+})
 
 /*
   03
@@ -55,13 +89,30 @@ console.log(sum(...numbers))
 */
 
 const volkswagenProto = {
-  logCarInfo () {
+  logCarInfo() {
     console.log(`Volkswagen ${this.name}, cor ${this.color}.`)
   }
 }
 
-// const amarok = carMaker({ name: 'Amarok', color: 'preta' })
-// const jetta = carMaker({ name: 'Jetta', color: 'prata' })
+const TeslaProto = {
+  logCarInfo() {
+    console.log(`Tesla ${this.name}, cor ${this.color},`)
+  }
+}
+
+const carMaker = ({ name, color }, volkswagenProto) => {
+  const car = Object.create(volkswagenProto)
+  car.name = name
+  car.color = color
+  return car
+}
+
+const amarok = carMaker({ name: 'Amarok', color: 'preta' }, volkswagenProto)
+const jetta = carMaker({ name: 'Jetta', color: 'prata' }, volkswagenProto)
+const cybertruck = carMaker({ name: 'Cyber Truck', color: 'Inox' }, TeslaProto)
+
+amarok.logCarInfo()
+cybertruck.logCarInfo()
 
 /*
   04
@@ -77,11 +128,29 @@ const volkswagenProto = {
     modificando o caractere que ela recebe como segundo argumento.
 */
 
-const aString = 'O Curso de JavaScript Roger Melo funciona com turmas fechadas, abertas poucas vezes e é focado em quem ainda não é fluente em JS. Ou seja, quem não consegue construir aplicações web com JavaScript puro.'
+const aString =
+  'O Curso de JavaScript Roger Melo funciona com turmas fechadas, abertas poucas vezes e é focado em quem ainda não é fluente em JS. Ou seja, quem não consegue construir aplicações web com JavaScript puro.'
 
+// const getIndexesOfCharacter = (string, char) => {
+//   //utilizando metodo split
+//   const phrase = string
+//     .split('')
+//     .reduce(
+//       (acc, item, index) =>
+//         item.toLowerCase() === char.toLowerCase() ? [...acc, index] : acc,
+//       []
+//     )
+//   return phrase
+// }
 
+const getIndexesOfCharacter = (string, char) =>
+  [...string].reduce(
+    (acc, item, index) =>
+      item.toLowerCase() === char.toLowerCase() ? [...acc, index] : acc,
+    []
+  )
 
-// console.log(getIndexesOfCharacter(aString, 'b'))
+console.log(getIndexesOfCharacter(aString, 'o'))
 
 /*
   05
@@ -126,7 +195,30 @@ const aString = 'O Curso de JavaScript Roger Melo funciona com turmas fechadas, 
       ela já tem + 1 e faça characterIndex receber 0.
 */
 
+const typing = document.querySelector('[data-js="typing"]')
+const messages = ['sou fluente em JS', 'construo aplicações web com JS puro']
 
+let messageIndex = 0
+let characterIndex = 0
+let currentMessage = ''
+let currentCharacters = ''
+
+const type = () => {
+  if (messageIndex === messages.length) {
+    messageIndex = 0
+  }
+  currentMessage = messages[messageIndex]
+  currentCharacters = currentMessage.slice(0, characterIndex++)
+  typing.textContent = currentCharacters
+
+  if (currentCharacters.length === currentMessage.length) {
+    messageIndex++
+    characterIndex = 0
+  }
+  currentCharacters = currentMessage.slice()
+}
+
+// setInterval(type, 200)
 
 /*
   06
@@ -146,10 +238,20 @@ const wrongDataFormat = [
   'azul-XG',
   'azul-XG',
   'azul-XG',
-  'azul-P'
+  'azul-P',
+  'marrom-PP',
+  'marrom-PP'
 ]
 
+const correctDataFormat = wrongDataFormat.reduce((acc, colorAndSize) => {
+  const [color, size] = colorAndSize.split('-')
+  acc[color] = acc[color] || {}
+  acc[color][size] = acc[color][size] || 0
+  acc[color][size] += 1
+  return acc
+}, {})
 
+console.log(correctDataFormat)
 
 /*
   {
